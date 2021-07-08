@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+    <script>
+        let {reactive,shallowReactive,readonly,shallowReadonly} = VueReactivity
+        const res = readonly({a:1,b:{c:12}})
+        console.log(res)
+        const proxy = new Proxy({a:1,b:{c:1}},{
+            get:(target,key)=>{
+                console.log(111223)
+                return Reflect.get(target,key)
+            },
+            set:function(target,key,value){
+                console.log('set')
+                target[key] =value
+            }
+        })
+    </script>
+</body>
+</html>

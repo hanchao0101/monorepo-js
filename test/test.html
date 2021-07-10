@@ -8,6 +8,7 @@
 </head>
 <body>
     <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+    <script src="../node_modules/@vue/runtime-dom/dist/runtime-dom.global.js"></script>
     <script>
         let {reactive,shallowReactive,readonly,shallowReadonly,effect,ref,computed} = VueReactivity
         //------------reactive------------
@@ -44,16 +45,17 @@
         // })
 
         //---------------computed---------------
-        const state = reactive({
-            name:'张三',
-            age:18,
-        })
-        const comp = computed(()=>{
-            return state.name + state.age
-        })
-        console.log(comp.value)
-        state.name = 'hc'
-        console.log(comp.value)
+        // const state = reactive({
+        //     name:'张三',
+        //     age:18,
+        // })
+        // const comp = computed(()=>{
+        //     return state.name + state.age
+        // })
+        // console.log(comp.value)
+        // state.name = 'hc'
+        // console.log(comp.value)
+        console.log(VueRuntimeDom)
     </script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+import { isArray, isIntergerKey } from "@vue/shared";
+import { TriggerOpTypes } from "./operators";
+
 let uid = 0;
 let activeEffect: any;
 const effectStack: any = []; //嵌套effect,保证顺序正确
@@ -53,4 +56,45 @@ export function track(target: any, type: number, key: string) {
   if (!dep.has(activeEffect)) {
     dep.add(activeEffect);
   }
+}
+
+export function trigger(target, type, key?, newValue?, oldValue?) {
+  console.log(target, type, key, newValue, oldValue);
+  const depsMap = targetMap.get(target);
+  if (!depsMap) return;
+  const effects = new Set();
+  const add = (effectsToAdd) => {
+    if (effectsToAdd) {
+      effectsToAdd.forEach((effect) => effects.add(effect));
+    }
+  };
+  //修改数组的长度
+  if (isArray(target) && key === "length") {
+    depsMap.forEach((dep, key) => {
+      //arr.length = 1 修改的长度小于之前的长度
+      if (key === "length" || key > newValue) {
+      }
+      add(dep);
+    });
+  } else {
+    //对象
+    if (key !== undefined) {
+      add(depsMap.get(key));
+    }
+    //修改数组中的某一索引
+    switch (type) {
+      case TriggerOpTypes.ADD: //如果添加索引就触发长度更新
+        if (isArray(target) && isIntergerKey(key)) {
+          add(depsMap.get("length"));
+        }
+    }
+  }
+  effects.forEach((effect: any) => {
+    console.log(3334567, effect);
+    if (effect && effect.options.scheduler) {
+      effect.options.scheduler(effect);
+    } else {
+      effect && effect();
+    }
+  });
 }

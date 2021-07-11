@@ -20,7 +20,7 @@ function runParallel(targets, interatorFn) {
 
 async function build(target) {
     target = `${base}/${target}`
-    await execa('rollup', ['-c', '--environment', `TARGET:${target}`], {
+    await execa('rollup', ['-cW', '--environment', `TARGET:${target}`], {
         stdio: 'inherit'//子进程打包的信息共享给父进程
     })
 

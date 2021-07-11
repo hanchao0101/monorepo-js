@@ -16,3 +16,5 @@ export const hasOwn = (target: any, key: string) =>
   Object.prototype.hasOwnProperty.call(target, key);
 
 export const hasChanged = (oldValue: any, value: any) => oldValue !== value;
+
+export { ShapeFlags } from "./shapFlags";

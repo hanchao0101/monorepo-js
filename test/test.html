@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app">123</div>
     <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
     <script src="../node_modules/@vue/runtime-dom/dist/runtime-dom.global.js"></script>
     <script>
@@ -55,7 +56,21 @@
         // console.log(comp.value)
         // state.name = 'hc'
         // console.log(comp.value)
-        console.log(VueRuntimeDom)
+     console.log(223,VueRuntimeDom)
+        const { createApp,h } = VueRuntimeDom
+        const component = {
+            setup(props,context){
+                console.log(props,context)
+                return ()=>{
+                    return h('div',{style:{color:'red'}},'helloworld')
+                }
+            },
+            // render(proxy){
+            //     console.log(123123,proxy)
+            // }
+        }
+        const app = createApp(component,{name:'123',age:18})
+        app.mount('#app')
     </script>
 </body>
 </html>

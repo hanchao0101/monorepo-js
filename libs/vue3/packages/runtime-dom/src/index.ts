@@ -20,3 +20,5 @@ export function createApp(rootCompent, rootProps = null) {
   };
   return app;
 }
+
+export * from "@vue/runtime-core";

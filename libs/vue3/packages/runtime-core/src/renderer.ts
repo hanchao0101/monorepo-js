@@ -36,7 +36,6 @@ export function createRenderer(rendererOptions) {
         scheduler: queueJob,
       }
     );
-    instance.render();
   };
 
   const mountComponnent = (initialVNode, container) => {
@@ -86,11 +85,14 @@ export function createRenderer(rendererOptions) {
       //更新
     }
   };
+  //------------------元素---------------------
+  //------------------文本---------------------
   const processText = (n1, n2, container) => {
     if (n1 == null) {
       hostInsert((n2.el = hostCreateText(n2.children)), container);
     }
   };
+  //------------------文本---------------------
   const patch = (n1, n2, container) => {
     const { shapeFlag, type } = n2;
     switch (type) {
